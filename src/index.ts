@@ -1,21 +1,14 @@
-import "./db"
-
-import express, { Request, Response } from 'express';
+import express, { Request, Response, NextFunction } from 'express';
+var morgan = require('morgan');
 
 // Router
 import globalRouter from './routers/globalRouter';
 import videoRouter from './routers/videoRouter';
 import userRouter from './routers/userRouter';
-
-var morgan = require('morgan')
  
 const app = express();
 const logger = morgan("dev");
-const port = 3000;
 
-const handleListening = () => {
-  console.log(`🆗 open at http://localhost:${port}`);
-}
 
 app.set("view engine", "pug");
 app.set("views", process.cwd() + "/src/views");
@@ -27,6 +20,27 @@ app.use("/", globalRouter);
 app.use("/videos", videoRouter);
 app.use("/users", userRouter);
 
-app.listen(port, handleListening);
+// 404 핸들러
+app.use((req: Request, res: Response, next: NextFunction) => {
+  res.status(404);
+  res.render("error", {
+    pageTitle: "Page Not Found",
+    message: "The page you are looking for does not exist.",
+    error: {}
+  });
+});
+
+// 에러 핸들러
+app.use((err: any, req: Request, res: Response, next: NextFunction) => {
+  res.status(err.status || 500);
+  res.render("error", {
+    pageTitle: "Error",
+    message: err.message,
+    error: app.get("env") === "development" ? err : {}
+  });
+});
+
+
+export default app;
 
 
