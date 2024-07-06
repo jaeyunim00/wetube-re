@@ -1,0 +1,13 @@
+extend  base
+
+block content
+  if errorMessage 
+    span=errorMessage
+  form(method="post")
+    input(placeholder="name", type="text", required, name = "name")
+    input(placeholder="email", type="text", required, name = "email")
+    input(placeholder="username", type="text", required, name = "username")
+    input(placeholder="password", type="text", required, name = "password")
+    input(placeholder="re-password", type="text", required, name = "repassword")
+    input(placeholder="location", type="text", required, name = "location")
+    input(placeholder="", type="submit", value="join")

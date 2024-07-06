@@ -1,6 +1,9 @@
 import mongoose from "mongoose";
+require("dotenv").config();
 
-mongoose.connect("mongodb://127.0.0.1:27017/wetube")
+const dbUrl = process.env.DB_URL as string;
+
+mongoose.connect(dbUrl)
   .catch((error) => {
   console.error("DB Error", error);
 });
