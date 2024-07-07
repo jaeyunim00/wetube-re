@@ -50,7 +50,7 @@ export const getLogin = (req: Request, res: Response) => {
 
 export const postLogin = async (req: any, res: Response) => {
   const { username, password } = req.body;
-  const user = await User.findOne({ username: username });
+  const user = await User.findOne({ username: username, socialOnly: false });
   if (!user) {
     return res.status(400).render("login", {
       pageTitle: "login",
@@ -75,12 +75,10 @@ export const edit = (req: Request, res: Response) => {
   res.send("edit");
 };
 
-export const remove = (req: Request, res: Response) => {
-  res.send("remove")
-};
 
-export const logout = (req: Request, res: Response) => {
-  res.send("Logout");
+export const logout = (req: any, res: Response) => {
+  req.session.destroy();
+  return res.redirect("/");
 }
 
 export const see = (req: Request, res: Response) => {

@@ -3,18 +3,22 @@ const bcrypt = require('bcrypt');
 
 export interface IUser extends Document {
   email: string,
+  socialOnly: Boolean,
   username: string,
   password: string,
   name: string,
   location: string,
+  avatarUrl: string,
 }
 
 const userSchema = new mongoose.Schema({
   email: { type: String, required: true },
+  socialOnly: { type: Boolean, default: false },
   username: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
+  password: { type: String, required: false },
   name: { type: String, required: true },
   location: String,
+  avatarUrl: String,
 });
 
 userSchema.pre<IUser>("save", async function (next) {

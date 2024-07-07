@@ -10,6 +10,7 @@ import rootRouter from './routers/rootRouter';
 import videoRouter from './routers/videoRouter';
 import userRouter from './routers/userRouter';
 import { localsMiddleware } from './middleware/locals';
+import oAuthRouter from './routers/oAuthRouter';
 
 // mongo
 const MONGO_URI = process.env.DB_URL;
@@ -37,6 +38,7 @@ app.use(localsMiddleware);
 app.use("/", rootRouter);
 app.use("/videos", videoRouter);
 app.use("/users", userRouter);
+app.use("/oAuth", oAuthRouter);
 
 // 404 핸들러
 app.use((req: Request, res: Response, next: NextFunction) => {
