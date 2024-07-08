@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import User from "../models/User";
+import { userInfo } from "os";
 const bcrypt = require('bcrypt');
 
 // 회원가입
@@ -10,15 +11,13 @@ export const getJoin = (req: Request, res: Response) => {
 export const postJoin = async (req: Request, res: Response) => {
   const { name, username, email, password, repassword , location } = req.body;
 
-  const pageTitle = "Join";
-
   const userNameExisit = await User.exists({ username });
 
   if(userNameExisit) {
     return res.render("join", {pageTitle: "join", errorMessage: "이미 존재하는 닉네임입니다."})
   };
 
-  const emailExists = await User.exists({ username });
+  const emailExists = await User.exists({ email });
   
   if(emailExists) {
     return res.render("join", {pageTitle: "join", errorMessage: "이미 존재하는 이메일입니다."})
@@ -71,8 +70,41 @@ export const postLogin = async (req: any, res: Response) => {
 }
 
 
-export const edit = (req: Request, res: Response) => {
-  res.send("edit");
+export const getEdit = (req: any, res: Response) => {
+  res.render("edit-profile", {pageTitle: "edit profile"});
+};
+
+export const postEdit = async (req: any, res: Response) => {
+  const { name, email, username, location } = req.body;
+  const { _id } = req.session.user;
+
+  
+  if (req.session.user.username !== username) {
+    const userNameExisit = await User.exists({ username });
+    
+    if(userNameExisit) {
+      return res.render("edit-profile", {pageTitle: "프로팔 수정", errorMessage: "이미 존재하는 닉네임입니다."})
+    };
+  }
+
+  if (req.session.user.email !== email) {
+    const emailExists = await User.exists({ email });
+    
+    if(emailExists) {
+      return res.render("edit-profile", {pageTitle: "프로필 수정", errorMessage: "이미 존재하는 이메일입니다."})
+    };
+  }
+
+  const updatedUser = await User.findByIdAndUpdate(_id, {
+    name,
+    email,
+    username,
+    location,
+  }, { new: true });
+  
+  req.session.user = updatedUser;
+
+  return res.redirect("/users/edit");
 };
 
 
@@ -81,6 +113,53 @@ export const logout = (req: any, res: Response) => {
   return res.redirect("/");
 }
 
+export const getChangePassword = (req: any, res: Response) => {
+  if (req.session.user.socialOnly === true) {
+    return res.redirect("/");
+  }
+
+  return res.render("users/change-password", { pageTitle: "비밀번호 변경" });
+}
+
+export const postChangePassword = async (req: any, res: Response) => {
+  const { _id } = req.session.user;
+  const { password_old, password_new, password_new_confirm } = req.body;
+  
+  const user: any = await User.findById(_id);
+
+  const ok = await bcrypt.compare(password_old, user.password);
+
+  if (!ok) {
+    return res.status(400).render("users/change-password", {
+      pageTitle: "비밀번호 변경",
+      errorMessage: "비밀번호가 틀렸습니다."
+    })
+  }
+
+  if (password_new === password_old) {
+    return res.status(400).render('users/change-password', {
+    pageTitle: "비밀번호 변경",
+    errorMessage: '비밀번호가 그대로입니다.',
+    });
+  }
+
+  if (password_new !== password_new_confirm) {
+    return res.status(400).render("users/change-password",
+      {
+        pageTitle: "비밀번호 변경",
+        errorMessage: "비밀번호가 일치하지 않습니다."
+      }
+    )
+  }
+
+  user.password = password_new;
+  await user.save();
+
+  req.session.destroy();
+  return res.redirect('/login');
+}
+
 export const see = (req: Request, res: Response) => {
   res.send("see user");
 }
+

@@ -1,11 +1,22 @@
 import express, { Request, Response } from "express";
-import { edit, logout, see } from "../controllers/userController";
+import { getChangePassword, getEdit, logout, postChangePassword, postEdit, see } from "../controllers/userController";
+import { protectorMiddleWare } from "../middleware/protector";
 
 const userRouter = express.Router();
 
-userRouter.get("/logout", (req: Request, res: Response) => logout(req, res));
+userRouter.route("/edit")
+  .all(protectorMiddleWare)
+  .get((req: Request, res: Response) => getEdit(req, res))
+  .post((req: any, res: Response) => postEdit(req, res))
+
+userRouter.route("/change-password")
+  .all(protectorMiddleWare)
+  .get((req: Request, res: Response) => getChangePassword(req, res))
+  .post((req: any, res: Response) => postChangePassword(req, res))
+
+userRouter.get("/logout", protectorMiddleWare ,(req: Request, res: Response) => logout(req, res));
 userRouter.get("/:id", (req: Request, res: Response) => see(req, res));
-userRouter.get("/edit", (req: Request, res: Response) => edit(req, res));
+
 
 
 export default userRouter;
