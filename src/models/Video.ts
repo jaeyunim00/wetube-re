@@ -6,6 +6,7 @@ export const formatHashtags = (hashtags: string) =>
 
 // 인터페이스 정의
 export interface IVideo extends Document {
+  fileUrl: string;
   title: string;
   description: string;
   createdAt: Date;
@@ -14,9 +15,11 @@ export interface IVideo extends Document {
     views: number;
     rating: number;
   }
+  owner: mongoose.Schema.Types.ObjectId;
 }
 
 const videoScheme: Schema<IVideo> = new Schema({
+  fileUrl: { type: String, required: true },
   title: { type: String, required: true, uppercase: true, trim: true, maxlength: 50 },
   description: { type: String, required: true, trim: true, maxlength: 300 },
   createdAt: { type: Date, required: true, default: Date.now },
@@ -24,7 +27,8 @@ const videoScheme: Schema<IVideo> = new Schema({
   meta: {
     views: { type: Number, default: 0 },
     rating: { type: Number, default: 0 }
-  }
+  },
+  owner: {type: mongoose.Schema.Types.ObjectId, required: true, ref: "User" }
 });
 
 const Video = mongoose.model<IVideo>("Video", videoScheme);

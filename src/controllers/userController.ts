@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import User from "../models/User";
-import { userInfo } from "os";
+import Video from "../models/Video";
 const bcrypt = require('bcrypt');
 
 // 회원가입
@@ -76,9 +76,11 @@ export const getEdit = (req: any, res: Response) => {
 
 export const postEdit = async (req: any, res: Response) => {
   const { name, email, username, location } = req.body;
-  const { _id } = req.session.user;
+  const { _id, avatarUrl } = req.session.user;
 
-  
+  // 프로필이미지
+  const file = req.file;
+
   if (req.session.user.username !== username) {
     const userNameExisit = await User.exists({ username });
     
@@ -95,7 +97,9 @@ export const postEdit = async (req: any, res: Response) => {
     };
   }
 
+
   const updatedUser = await User.findByIdAndUpdate(_id, {
+    avatarUrl: file ? file.path : avatarUrl,
     name,
     email,
     username,
@@ -159,7 +163,17 @@ export const postChangePassword = async (req: any, res: Response) => {
   return res.redirect('/login');
 }
 
-export const see = (req: Request, res: Response) => {
-  res.send("see user");
+export const see = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const user = await User.findById(id).populate("videos");
+
+  if (!user) {
+    return res.status(404).render("error");
+  }
+  
+  return res.render("users/profile", {
+    pageTitle: user.username,
+    user,
+  });
 }
 

@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import Video, { IVideo, formatHashtags } from "../models/Video";
+import User from "../models/User";
 
 // home
 export const home = async (req: Request, res: Response, next: NextFunction) => {
@@ -17,7 +18,8 @@ export const watch = async (req: Request, res: Response, next: NextFunction) => 
   const { id } = req.params;
 
   try {
-    const video = await Video.findById(id);
+    const video = await Video.findById(id).populate("owner");
+    console.log(video);
     if (!video) {
       return res.status(404).send("Video not found");
     }
@@ -28,20 +30,29 @@ export const watch = async (req: Request, res: Response, next: NextFunction) => 
 };
 
 // upload
-export const getUpload = (req: Request, res: Response) => {
+export const getUpload = (req: any, res: Response) => {
   res.render("upload", { pageTitle: "Upload Video" });
 };
 
-export const postUpload = async (req: Request, res: Response, next: NextFunction) => {
+export const postUpload = async (req: any, res: Response, next: NextFunction) => {
   const { title, description, hashtags } = req.body;
+  
+  const file = req.file;
+
+  const { _id } = req.session.user;
 
   try {
-    await Video.create({
+    const newVideo = await Video.create({
+      fileUrl: file ? file.path : "undefined",
       title,
       description,
       hashtags: formatHashtags(hashtags),
+      owner: _id
     });
-    res.redirect("/");
+    const user: any = await User.findById(_id);
+    user.videos.push(newVideo._id);
+    user.save();
+    return res.redirect("/");
   } catch (error) {
     next(error); // 에러 핸들러로 에러 전달
   }
@@ -88,9 +99,16 @@ export const postEdit = async (req: Request, res: Response, next: NextFunction) 
 };
 
 // delete
-export const deleteVideo = async (req: Request, res: Response, next: NextFunction) => {
+export const deleteVideo = async (req: any, res: Response, next: NextFunction) => {
   const { id } = req.params;
-
+  const user = req.session.user;
+  const video = await Video.findById(id);
+  if (!video) {
+    return res.status(404).render("error");
+  }
+  if (String(video.owner) !== String(user._id)) {
+    return res.status(403).render("error");
+  }
   try {
     await Video.findByIdAndDelete(id);
     return res.redirect(`/`);

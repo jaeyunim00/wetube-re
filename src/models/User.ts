@@ -9,6 +9,7 @@ export interface IUser extends Document {
   name: string,
   location: string,
   avatarUrl: string,
+  videos: mongoose.Schema.Types.ObjectId[],
 }
 
 const userSchema = new mongoose.Schema({
@@ -19,6 +20,9 @@ const userSchema = new mongoose.Schema({
   name: { type: String, required: true },
   location: String,
   avatarUrl: String,
+  videos: [
+    { type: mongoose.Schema.Types.ObjectId, required: true, ref: "Video" }
+  ]
 });
 
 userSchema.pre<IUser>("save", async function (next) {

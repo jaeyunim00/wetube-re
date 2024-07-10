@@ -1,13 +1,14 @@
 import express, { Request, Response } from "express";
 import { getChangePassword, getEdit, logout, postChangePassword, postEdit, see } from "../controllers/userController";
 import { protectorMiddleWare } from "../middleware/protector";
+import { avatarUpload } from "../middleware/uploadFiles";
 
 const userRouter = express.Router();
 
 userRouter.route("/edit")
   .all(protectorMiddleWare)
   .get((req: Request, res: Response) => getEdit(req, res))
-  .post((req: any, res: Response) => postEdit(req, res))
+  .post(avatarUpload.single('avatar'), (req: any, res: Response) => postEdit(req, res))
 
 userRouter.route("/change-password")
   .all(protectorMiddleWare)
@@ -15,6 +16,7 @@ userRouter.route("/change-password")
   .post((req: any, res: Response) => postChangePassword(req, res))
 
 userRouter.get("/logout", protectorMiddleWare ,(req: Request, res: Response) => logout(req, res));
+
 userRouter.get("/:id", (req: Request, res: Response) => see(req, res));
 
 

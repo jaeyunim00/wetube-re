@@ -1,13 +1,14 @@
 import express, { Request, Response, NextFunction } from "express";
 import { watch, getEdit, postEdit, getUpload, postUpload, deleteVideo } from "../controllers/videoController";
 import { protectorMiddleWare } from "../middleware/protector";
+import { videoUpload } from "../middleware/uploadFiles";
 
 const videoRouter = express.Router();
 
 videoRouter.route("/upload")
   .all(protectorMiddleWare)
   .get((req: Request, res: Response, next: NextFunction) => getUpload(req, res))
-  .post((req: Request, res: Response, next: NextFunction) => postUpload(req, res, next));
+  .post(videoUpload.single("video"), (req: any, res: Response, next: NextFunction) => postUpload(req, res, next));
 
 videoRouter.get("/:id", (req: Request, res: Response, next: NextFunction) => watch(req, res, next));
 
