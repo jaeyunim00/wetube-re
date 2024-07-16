@@ -1,17 +1,18 @@
-extends base.pug
+extends base
 
 block content
-  if errorMessage 
-    span=errorMessage
-  form(method="post")
-    input(type="text", name="username" placeholder = "닉네임")
-    input(type="password", name="password" placeholder = "패스워드")
-    input(placeholder="", type="submit", value="로그인")
-    br
-    a(href="/oAuth/github/start") 깃허브로 로그인 &rarr;
-    br
-    a(href="/oAuth/kakao/start") 카카오로 로그인 &rarr;
-  hr
-  div
-    span 계정이 없으세요?
-    a(href="/join") 계정 생성하기 &rarr;
+  div.form-container
+    if errorMessage
+      span.error-message= errorMessage
+    .join_container 
+      form(method="post")
+        input(type="text", name="username", placeholder="Username")
+        input(type="password", name="password", placeholder="Password")
+        input(type="submit", value="Login")
+      div.social-login
+        a.github(href="/oAuth/github/start") 깃허브 로그인
+        a.kakao(href="/oAuth/kakao/start") 카카오 로그인
+      hr
+      div
+        span 계정이 없으세요? 
+        a(href="/join") 계정 생성하기 &rarr;

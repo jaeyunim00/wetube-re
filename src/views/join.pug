@@ -1,13 +1,15 @@
-extend  base
+extends base
 
 block content
-  if errorMessage 
-    span=errorMessage
-  form(method="post")
-    input(placeholder="name", type="text", required, name = "name")
-    input(placeholder="email", type="text", required, name = "email")
-    input(placeholder="username", type="text", required, name = "username")
-    input(placeholder="password", type="text", required, name = "password")
-    input(placeholder="re-password", type="text", required, name = "repassword")
-    input(placeholder="location", type="text", required, name = "location")
-    input(placeholder="", type="submit", value="join")
+  div.form-container
+    if errorMessage
+      span.error-message=errorMessage
+    .join_container
+      form(method="post")
+        input(placeholder="성함", type="text", required, name="name")
+        input(placeholder="이메일", type="email", required, name="email")
+        input(placeholder="닉네임", type="text", required, name="username")
+        input(placeholder="비밀번호", type="password", required, name="password")
+        input(placeholder="비밀번호 확인", type="password", required, name="repassword")
+        input(placeholder="거주지", type="text", required, name="location")
+        input(type="submit", value="가입하기")

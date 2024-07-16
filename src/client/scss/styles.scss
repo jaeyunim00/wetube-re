@@ -1,0 +1,184 @@
+@import "./variables";
+@import "./reset/reset.scss";
+
+// 네비게이션 바
+@import "./components/navbar.scss";
+
+// 회원가입
+@import "./components/join.scss";
+
+// 정보수정
+@import "./components/edit_profile.scss";
+
+// 검색 폼
+@import "./components/search-form.scss";
+
+body {
+  background-color: $background;
+  font-family: "Noto Sans KR", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.wrapper {
+  width: 96%;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+main {
+  margin-top: 160px;
+}
+
+.video-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin-top: 50px;
+  height: 70vh;
+  overflow-y: scroll;
+}
+
+.video-grid-for-profile {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin-top: 50px;
+  height: 55vh;
+  overflow-y: scroll;
+}
+
+.video-grid-for-search {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin-top: 50px;
+  height: 60vh;
+  overflow-y: scroll;
+}
+
+.video-item {
+  margin: 20px 0;
+}
+
+.video-item {
+  background: $white;
+  color: $black;
+  padding: 20px;
+  width: calc(33.333% - 20px);
+  box-sizing: border-box;
+  box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
+  border-radius: 10px;
+  height: 540px;
+}
+
+.video-item h4 {
+  background-color: $background;
+  border-radius: 10px;
+  text-align: center;
+  font-weight: 700;
+  margin: 20px 0;
+  box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
+}
+
+.video-item a {
+  display: block;
+  padding: 15px;
+}
+
+.video_content {
+  background-color: $background;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
+}
+
+.video-item p {
+  margin: 0 0 10px;
+}
+
+.video-item ul {
+  padding: 0;
+  list-style: none;
+  margin: 0 0 10px;
+}
+
+.video-item ul li {
+  display: inline;
+  margin-right: 5px;
+}
+
+.video-item .video_thumnail_container {
+  position: relative;
+  overflow: hidden; /* 내부 요소를 넘어가는 부분을 숨기기 위해 overflow 설정 */
+  width: 100%; /* 부모 요소인 .video-item에 꽉 차도록 설정 */
+  height: 300px; /* 원하는 높이로 설정 */
+  // border-radius: 10px; /* 필요에 따라 border-radius 설정 */
+  box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
+}
+
+.video-item .video_thumnail {
+  width: 100%; /* 부모 요소인 .video_thumnail_container에 꽉 차도록 설정 */
+  height: 100%; /* 부모 요소인 .video_thumnail_container에 꽉 차도록 설정 */
+  object-fit: cover; /* 비디오 썸네일이 자동으로 잘리지 않고 채워지도록 설정 */
+}
+
+@media (max-width: 1100px) {
+  .video-item {
+    width: calc(50% - 20px);
+  }
+}
+
+@media (max-width: 750px) {
+  .video-item {
+    width: 100%;
+  }
+}
+
+footer {
+  width: 96%;
+  background-color: $white;
+  color: $black;
+  padding: 30px;
+  text-align: center;
+  box-sizing: border-box;
+  box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
+  border-radius: 10px;
+  margin: 30px 0px;
+  position: absolute;
+  bottom: 0;
+}
+
+.profile_wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.profile_title {
+  margin-top: 10px;
+  background-color: $white;
+  margin-bottom: -25px;
+  width: 500px;
+  padding: 20px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 20px;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
+}
+
+.upload_video {
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.social-login {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.social-login a{
+  margin-right: 15px;
+}

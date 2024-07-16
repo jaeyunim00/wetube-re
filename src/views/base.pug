@@ -1,31 +1,36 @@
-doctype html 
+doctype html
 html(lang="ko")
-  head 
+  head
     title #{pageTitle} | Wetube
-    link(rel="stylesheet" href="https://unpkg.com/mvp.css")
+    link(rel="stylesheet", href="/static/css/styles.css")
+    link(href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet")
   body
-    header
-      nav
-        ul
-          li
-            a(href="/") Wetube
-          if loggedIn
-            li
-              a(href="/users/logout") 로그아웃
-            li
-              a(href="/users/edit") #{loggedInUser.username} 의 프로필
-            li
-              a(href=`/users/${loggedInUser._id}`) 내 정보
-            li
-              a(href="/videos/upload") 업로드
-          else
-            li
-              a(href="/join") 회원가입
-            li
-              a(href="/login") 로그인
-          li
-            a(href="/search") 검색
-      h1=pageTitle
-    main
-      block content
-  include partials/footer
+    .wrapper
+      header
+        nav.navbar
+          ul.navbar_items
+            .item_logo
+              a(href="/")
+                img(src="/static/goIcon.svg", alt="Wetube Logo")
+                p GOTube
+            .item_pages
+              if loggedIn
+                li
+                  a(href="/users/logout") 로그아웃
+                li
+                  a(href="/users/edit") #{loggedInUser.username} 의 프로필
+                li
+                  a(href=`/users/${loggedInUser._id}`) 내 정보
+                li
+                  a(href="/videos/upload") 업로드
+              else
+                li
+                  a(href="/join") 회원가입
+                li
+                  a(href="/login") 로그인
+              li
+                a(href="/search") 검색
+      main
+        block content
+      include partials/footer
+  block scripts

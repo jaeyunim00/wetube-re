@@ -1,14 +1,8 @@
-doctype html
-html(lang="ko")
-  head 
-    title #{pageTitle} | Wetube
-    link(rel="stylesheet" href="https://unpkg.com/mvp.css")
-  body
-    header
-      h1=pageTitle
-    main
-      h2 #{message}
-      if error
-        pre #{error.stack}
-    footer
-      p &copy; 2023 Wetube
+extends base.pug
+
+block content
+  div.error-page
+    h1= pageTitle
+    h2= message
+    if error
+      pre= error.stack

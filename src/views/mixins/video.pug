@@ -1,10 +1,13 @@
 mixin video(video)
-  div
+  .video-item
+    div.video_thumnail_container   
+      video.video_thumnail(preload="metadata" src="/" + video.fileUrl)
     h4
-      a(href=`/videos/${video.id}`)=video.title
-    p=video.description
-    ul
-      each hashtag in video.hashtags
-        li=hashtag
-    small=video.createdAt
-    hr
+      a(href=`/videos/${video.id}`)= video.title
+    div.video_content
+      p= video.description
+      ul
+        each hashtag in video.hashtags
+          li= hashtag
+      small= video.createdAt
+      

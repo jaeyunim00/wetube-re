@@ -1,11 +1,11 @@
-extends base.pug
+extends base
 include mixins/video
 
 block content
-  form(method="GET")
-    input(placeholder="Search with Title", type="text", name="keyword")
-    input(type="submit", value="search now")
-
-  div
-    each video in videos 
+  form(method="GET").search-form
+    input(placeholder="제목 검색", type="text", name="keyword")
+    input(type="submit", value="검색")
+  
+  div.video-grid-for-search
+    each video in videos
       +video(video)

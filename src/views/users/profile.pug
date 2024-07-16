@@ -2,6 +2,9 @@ extends ../base.pug
 include ../mixins/video
 
 block content
-  each video in user.videos 
-    +video(video)
+  .profile_wrapper 
+    div.profile_title=user.username+" 님의 영상"
+  .video-grid-for-profile
+    each video in user.videos 
+      +video(video)
   

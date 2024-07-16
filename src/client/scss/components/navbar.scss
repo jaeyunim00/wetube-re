@@ -1,0 +1,59 @@
+.navbar {
+  background-color: $white;
+  color: $black;
+  padding: 0px 50px;
+  box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
+  width: 96%;
+  position: absolute;
+  top: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  box-sizing: border-box;
+  border-radius: 10px;
+
+}
+
+.navbar_items {
+  display: flex;
+  padding: 0px 0px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.item_pages {
+  display: flex;
+}
+
+.item_pages li {
+  margin-left: 30px;
+  background-color: $background;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
+}
+
+.item_logo {
+  // background-color: blue;
+  height: 70px;
+  width: 100px;
+  font-family: "Jua", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.item_logo img {
+  max-width: 100%; /* 이미지가 부모 요소에 맞춰 최대 너비로 설정될 수 있도록 */
+  height: auto; /* 이미지의 높이 자동으로 조정 */
+  position: relative;
+  bottom: 30px;
+}
+
+.item_logo a p{
+  display: flex;
+  position: relative;
+  bottom: 83px;
+  left: 90px;
+  font-size: 30px;
+  font-weight: 700;
+  color: #69D7E2;
+}
