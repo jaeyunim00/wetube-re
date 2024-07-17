@@ -1,13 +1,22 @@
 extends base
 
 block content
-  div.video-player
-    video(src="/" + video.fileUrl, controls)
-  div
-    button#play 재생
-    button#mute 음소거
-    span#time 00:00/00:00
-    input(type="range" min="0" max="1" step="0.01")#volume
+  div#videoContainer
+    div#videoControls
+      video(src="/" + video.fileUrl, controls)
+    div
+      button#play 재생
+      button#mute Mute
+      div
+        span#currentTime 00:00
+        span /
+        span#totalTime 00:00
+    div
+      input(type="range" min="0" max="1" step="0.1" value=0.5)#volume
+    div
+      input(type="range", step="1", min="0", value = "0")#timeline
+    div
+      button#fullScreen 전체화면
   //- div
   //-   p= video.description
   //-   small= video.createdAt
