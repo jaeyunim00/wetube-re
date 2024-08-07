@@ -2,9 +2,9 @@ extends base.pug
 
 block content
   div.video-edit
-    h4 Change Title of Video
-    form(method="POST")
+    h4 비디오 수정
+    form.video-edit-form(method="POST")
       input(name="title", placeholder="Video Title", value=video.title, required)
       input(type="text", name="description", placeholder="Description", value=video.description, required)
       input(type="text", name="hashtags", placeholder="Hashtags", required, value=video.hashtags.join())
-      input(value="Save", type="submit")
+      input(value="수정하기", type="submit")

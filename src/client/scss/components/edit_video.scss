@@ -1,0 +1,44 @@
+.video-edit {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+
+.video-edit h4 {
+  font-size: 30px;
+  color: white;
+  padding: 20px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid white;
+  text-align: center;
+}
+
+.video-edit-form {
+  background-color: #353535;
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  border-radius: 10px;
+}
+
+.video-edit-form input {
+  height: 50px;
+  margin: 10px 0;
+  padding: 0px 15px;
+  border: none;
+  border-bottom: 1px solid white;
+  outline: none;
+  background-color: transparent;
+  font-size: 18px;
+  color: $white;
+}
+
+.video-edit-form input[type=submit] {
+  border: none;
+  color: $white;
+  border-bottom: 1px solid black;
+}

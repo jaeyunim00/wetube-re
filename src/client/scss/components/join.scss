@@ -2,19 +2,46 @@
   display: flex;
   justify-content: center;
   padding: 50px;
+  color: $white;
+}
+
+.join_container {
+  width: 500px;
+  padding: 30px;
+
+  border-radius: 10px;
+  background-color: #353535;
+  display: flex;
+  flex-direction: column;
 }
 
 .join_container form{
-  width: 500px;
-  background-color: $white;
   display: flex;
   flex-direction: column;
-  padding: 30px;
-  box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
-  border-radius: 10px;
 }
 
 .join_container form input {
+  height: 50px;
+  margin: 10px 0;
+  padding: 0px 15px;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid white;
+}
+
+.join_container form input[type=submit] {
+  border: none;
+  color: $white;
+  border-bottom: 1px solid black;
+}
+
+.social-login {
+  color: $white;
+  display: flex;
+}
+
+.social-login a{
   height: 50px;
   margin: 10px 0;
   padding: 0px 15px;
@@ -22,9 +49,16 @@
   border-radius: 10px;
   border: none;
   box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
 }
 
-.join_container form input[type=submit] {
-  background-color: $background;
-  border: none;
+.social-login a:first-child {
+  background-color: #F2DC00;
+}
+
+.social-login a:last-child {
+  background-color: #1C1C1C;
 }

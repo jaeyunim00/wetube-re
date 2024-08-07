@@ -6,13 +6,13 @@ block content
       span.error-message= errorMessage
     .join_container 
       form(method="post")
-        input(type="text", name="username", placeholder="Username")
-        input(type="password", name="password", placeholder="Password")
-        input(type="submit", value="Login")
+        input(type="text", name="username", placeholder="닉네임")
+        input(type="password", name="password", placeholder="비밀번호")
+        input(type="submit", value="로그인")
       div.social-login
-        a.github(href="/oAuth/github/start") 깃허브 로그인
-        a.kakao(href="/oAuth/kakao/start") 카카오 로그인
+        a.kakao(href="/oAuth/kakao/start") Kakao Login
+        a.github(href="/oAuth/github/start") GitHub Login
       hr
-      div
+      div.no-account
         span 계정이 없으세요? 
         a(href="/join") 계정 생성하기 &rarr;
